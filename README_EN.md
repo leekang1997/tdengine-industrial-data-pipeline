@@ -24,6 +24,19 @@ This project aims to systematize the path from raw industrial data to TDengine t
 - feature engineering and sequence slicing
 - JSON / SFT training-data export
 
+## Prerequisites
+
+This repository does not replace `TDengine` itself. It is a data-governance and sample-building layer built on top of `TDengine`.
+
+Before using it, you should already have:
+
+1. a working `TDengine` installation
+2. permission to access the target database
+3. a clear understanding of the raw field structure, time granularity, and sampling pattern
+4. a decision on whether you need time tables, space tables, spatio-temporal tables, or final training-sample export
+
+Without a working database environment and raw data source, this repository cannot complete the full pipeline by itself.
+
 ## Why This Project Exists
 
 The hard part of industrial time-series work is often not whether data exists, but whether that data can be turned into something stable and reusable for downstream systems.
@@ -39,10 +52,12 @@ This project aims to transform raw industrial signals into structured assets tha
 
 A typical workflow looks like this:
 
-1. ingest raw industrial time-series data into TDengine
-2. construct time tables, space tables, and spatio-temporal tables as needed
-3. perform cleaning, slicing, aggregation, and feature building on top of those tables
-4. export the final results as JSON or SFT-ready samples for downstream model training
+1. install and validate `TDengine` first
+2. prepare raw industrial time-series data and field mappings
+3. ingest the raw data into TDengine
+4. construct time tables, space tables, and spatio-temporal tables as needed
+5. perform cleaning, slicing, aggregation, and feature building on top of those tables
+6. export the final results as JSON or SFT-ready samples for downstream model training
 
 It is useful for:
 
@@ -65,6 +80,26 @@ The current design can be understood as four major stages:
   - turn structured outputs into training JSON or SFT-ready samples
 
 In other words, this repository targets the middle layer between database engineering and model data engineering.
+
+## What Needs To Be Configured
+
+At minimum, you should define:
+
+- TDengine connection information
+  - such as host, port, database name, and access credentials
+- raw field mappings
+  - which fields represent time, tag, value, device identity, and so on
+- table design
+  - which time tables, space tables, or spatio-temporal tables are required
+- export targets
+  - whether the final output should be JSON, training samples, or intermediate feature artifacts
+
+The key boundary is:
+
+- this repository handles organization, feature construction, and sample export around TDengine
+- `TDengine` itself still stores and queries the raw time-series data
+
+So if the database layer is not ready, the governance workflow cannot be executed end-to-end.
 
 ## How It Helps Others
 
@@ -124,3 +159,24 @@ tdengine-industrial-data-pipeline/
     ├── sample_input.json
     └── run_pipeline.py
 ```
+
+## Quick Start Idea
+
+```bash
+# 1. install and start TDengine
+# 2. prepare raw industrial time-series data
+# 3. define schemas and field mappings
+# 4. then run the governance and export flow from this repository
+```
+
+## A More Accurate Mental Model
+
+It is best to think about this project as:
+
+- a data-organization and sample-building layer on top of `TDengine`
+- not a replacement for the TDengine database itself
+
+So the practical order is:
+
+- get the database and raw data ready first
+- then use this repository to connect data governance with training-sample generation
