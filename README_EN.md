@@ -4,6 +4,14 @@
 
 `TDengine-Industrial-Data-Pipeline` is an industrial time-series data engineering toolkit covering TDengine schema creation, data ingestion, sequence splitting, spatio-temporal table construction, and training-data export.
 
+## At A Glance
+
+- Project type: a data-governance and sample-building layer on top of `TDengine`
+- Core goal: turn raw industrial time-series data into structured, analyzable, and trainable assets
+- Best for: teams working on industrial data governance, fault diagnosis, and training-sample construction
+- Dependency: requires a working `TDengine` installation first
+- Current stage: initial open-source release focused on data-pipeline organization and sample generation
+
 ## Project Positioning
 
 Industrial time-series data usually comes with several challenges:
