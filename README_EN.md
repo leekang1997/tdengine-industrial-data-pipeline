@@ -24,6 +24,55 @@ This project aims to systematize the path from raw industrial data to TDengine t
 - feature engineering and sequence slicing
 - JSON / SFT training-data export
 
+## Why This Project Exists
+
+The hard part of industrial time-series work is often not whether data exists, but whether that data can be turned into something stable and reusable for downstream systems.
+
+- raw fields are inconsistent
+- time granularity and sampling patterns are unstable
+- temporal and spatial relationships are often mixed together
+- training data usually requires another full round of restructuring
+
+This project aims to transform raw industrial signals into structured assets that can be stored, analyzed, and used for model training.
+
+## How To Use It
+
+A typical workflow looks like this:
+
+1. ingest raw industrial time-series data into TDengine
+2. construct time tables, space tables, and spatio-temporal tables as needed
+3. perform cleaning, slicing, aggregation, and feature building on top of those tables
+4. export the final results as JSON or SFT-ready samples for downstream model training
+
+It is useful for:
+
+- industrial data-governance projects
+- equipment monitoring and fault-diagnosis tasks
+- teams that need to convert raw time-series into training data
+- systems that want to connect the database layer with the model-training layer
+
+## How The Project Works
+
+The current design can be understood as four major stages:
+
+- ingestion
+  - define TDengine schemas and persist raw data reliably
+- structural organization
+  - split raw data into time tables, space tables, or spatio-temporal tables
+- feature processing
+  - apply cleaning, slicing, aggregation, and context building
+- sample export
+  - turn structured outputs into training JSON or SFT-ready samples
+
+In other words, this repository targets the middle layer between database engineering and model data engineering.
+
+## How It Helps Others
+
+- helps industrial teams turn messy raw data into reusable data infrastructure
+- helps ML teams reduce repeated manual cleaning and format conversion
+- helps projects connect raw signals to model-training samples faster
+- helps database-facing and model-facing teams collaborate through a clearer interface
+
 ## Source Origin
 
 - derived from internal TDengine-based industrial data-governance prototypes
